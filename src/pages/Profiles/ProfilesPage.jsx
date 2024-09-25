@@ -1,15 +1,20 @@
-import { useEffect, useState, useRef } from "react";
-import { useUsersContext } from "../../context/UsersContext";
+import { useEffect, useRef } from "react";
+import { useUsersContext, usePaginationContext } from "../../context";
 import { formDataJson } from "../../untils/formDataJson";
 
 export const ProfilesPage = () => {
 
     const form = useRef(null)
-    const { params: userState, addUser, choiseUser} = useUsersContext()
+    const { params: userState, addUser, selectUser} = useUsersContext()
+    const { setPage } = usePaginationContext()
 
     useEffect( () => {
-        if(localStorage.getItem("userId")){
-            choiseUser(localStorage.getItem("userId"))
+        const isExistsUser = userState
+            .includes(userState.find( user => user.id === Number(localStorage.getItem("userId"))))
+        if(isExistsUser && localStorage.getItem("userId")) {
+            selectUser(localStorage.getItem("userId"))
+        } else {
+            localStorage.removeItem("userId")
         }
     },[]) 
 
@@ -22,7 +27,8 @@ export const ProfilesPage = () => {
 
     const choiseUserHandler = (id) => {
         localStorage.setItem("userId", id)
-        choiseUser(localStorage.getItem("userId"))
+        selectUser(localStorage.getItem("userId"))
+        setPage("todo", 1)
     }
 
     return (
@@ -30,15 +36,15 @@ export const ProfilesPage = () => {
             <h1>Profiles Page</h1> 
 
             <div>
-                {userState?.map( el => (
+                {userState?.map( user => (
                     <div 
-                        key={el.id}
+                        key={user.id}
                         style={{display: 'flex', gap: '20px'}}
                     >
-                        {el.name}
+                        {user.name}
                         <button
-                            onClick={() => {choiseUserHandler(el.id)}}                            
-                            disabled={el.isActive}
+                            onClick={() => {choiseUserHandler(user.id)}}                            
+                            disabled={user.isActive}
                         >Выбрать профиль</button>
                     </div>
                 ))}

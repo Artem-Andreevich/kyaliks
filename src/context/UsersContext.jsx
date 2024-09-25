@@ -45,7 +45,7 @@ export const UsersProvider = ({ children }) => {
 		})
 	}
 	
-	const choiseUser = (userId) => {
+	const selectUser = (userId) => {
 		setParams(prev => prev.map( user => user.isActive = false))
 		const index = params.findIndex( user => user.id === Number(userId))
         const activeUser= {
@@ -57,7 +57,7 @@ export const UsersProvider = ({ children }) => {
 
 
 	return (
-		<UsersContext.Provider value={{ params, addUser, choiseUser}}>
+		<UsersContext.Provider value={{ params, addUser, selectUser}}>
 			{children}
 		</UsersContext.Provider>
 	);

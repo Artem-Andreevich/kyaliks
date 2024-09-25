@@ -12,14 +12,23 @@ export const TodoPage = () => {
     const [ todosData, setTodosData ] = useState({})
     const [ isLoading, setIsLoading ] = useState(true)
     const [ searchParams, setSearchParams ] = useSearchParams()
-    const { params: paginateState} = usePaginationContext()
+    const { params: paginateState, setPage } = usePaginationContext()
     const todoPaginate = paginateState.find( page => page.pageName === "todo")
 
+    const reloadPageHandler = () => { 
+
+        setSearchParams({ page: 10 })
+        setPage('todo', 1)
+    }
+
     useEffect(() => {
-        const currentPage = getCurrentPage(searchParams, todoPaginate);
-        if (!searchParams.get("page")) {
-            setSearchParams({ page: currentPage });
-        } 
+
+        const currentPage = getCurrentPage(searchParams, todoPaginate)
+        // if (!searchParams.get("page")) {
+        //     setSearchParams({ page: currentPage })
+        // }
+
+        window.addEventListener("beforeunload", reloadPageHandler);
 
         api.get.data(currentPage)
             .then(data => {
@@ -32,7 +41,11 @@ export const TodoPage = () => {
             })
             .catch((e) => {console.log("Error" + e)})
             .finally(() => {setIsLoading(false)})
-    }, [todoPaginate, searchParams, setSearchParams])
+
+        return () => {
+            window.removeEventListener("beforeunload", reloadPageHandler)
+        }
+    }, [todoPaginate.page])
 
     return (
         <div>
