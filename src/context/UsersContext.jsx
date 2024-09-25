@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { generateUniqueId } from '../untils/generateUniqueId';
 
 export const UsersContext = createContext(undefined);
 
@@ -39,34 +40,35 @@ export const UsersProvider = ({ children }) => {
 				...prev,
 				{
 					...user,
-					id: prev.length + 1
+					id: generateUniqueId()
 				}
 			]
 		})
 	}
 	
 	const selectUser = (userId) => {
-		setParams(prev => prev.map( user => user.isActive = false))
-		const index = params.findIndex( user => user.id === Number(userId))
-        const activeUser= {
-            ...params[index],
-            isActive: true
-        }
-        setParams( [...params.slice(0, index), activeUser, ...params.slice(index + 1)] )
+		setParams(prev => 
+			prev.map(user => 
+				user.id === +userId
+				? { ...user, isActive: true }
+				: { ...user, isActive: false }
+			)
+		)
 	}
+	
 
 
 	return (
 		<UsersContext.Provider value={{ params, addUser, selectUser}}>
 			{children}
 		</UsersContext.Provider>
-	);
-};
+	)
+}
 
 export const useUsersContext = () => {
   	const context = useContext(UsersContext);
 	if (!context) {
-		throw new Error('useUsersContext must be used within a UsersProvider');
+		throw new Error('useUsersContext must be used within a UsersProvider')
 	}
-	return context;
-};
+	return context
+}

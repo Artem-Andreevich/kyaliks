@@ -1,36 +1,19 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { usePaginationContext } from "../../context/PaginateContext"
 import { Pagination } from '../../components/Pagination';
-import { getCurrentPage } from "../../untils/getCurrentPage"
 import { TodoList } from '../../components/TodoList/TodoList';
-import { api } from "../../api/api"
+import { todoApi } from "../../api/todoApi"
 
 
 export const TodoPage = () => {
 
     const [ todosData, setTodosData ] = useState({})
     const [ isLoading, setIsLoading ] = useState(true)
-    const [ searchParams, setSearchParams ] = useSearchParams()
-    const { params: paginateState, setPage } = usePaginationContext()
+    const { params: paginateState } = usePaginationContext()
     const todoPaginate = paginateState.find( page => page.pageName === "todo")
 
-    const reloadPageHandler = () => { 
-
-        setSearchParams({ page: 10 })
-        setPage('todo', 1)
-    }
-
     useEffect(() => {
-
-        const currentPage = getCurrentPage(searchParams, todoPaginate)
-        // if (!searchParams.get("page")) {
-        //     setSearchParams({ page: currentPage })
-        // }
-
-        window.addEventListener("beforeunload", reloadPageHandler);
-
-        api.get.data(currentPage)
+        todoApi.get.data(todoPaginate.page)
             .then(data => {
                 setTodosData({
                     data: data.todos,
@@ -42,24 +25,23 @@ export const TodoPage = () => {
             .catch((e) => {console.log("Error" + e)})
             .finally(() => {setIsLoading(false)})
 
-        return () => {
-            window.removeEventListener("beforeunload", reloadPageHandler)
-        }
     }, [todoPaginate.page])
 
     return (
-        <div>
-            <h1>Todo Page</h1> 
-            {isLoading ? 
-                <div>Загрузка...</div> :
-                <TodoList data={todosData.data}/>
-            }
-            <Pagination 
-                totalPage={todosData.totalPage} 
-                page={todoPaginate.page}
-                currentPage={getCurrentPage(searchParams, todoPaginate)}
-                setSearchParams={setSearchParams}
-            />
-        </div>
+        <main className='page'>
+            <div className='container'>
+                <h1 className='page__title'>Todo Page</h1> 
+                {isLoading ? 
+                    <div>Загрузка...</div> :
+                    <TodoList data={todosData.data}/>
+                }
+                <Pagination 
+                    totalPage={todosData.totalPage} 
+                    page={todoPaginate.page}
+                    pageName={"todo"}
+                />
+            </div>
+        </main>
+        
     )
 }

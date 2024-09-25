@@ -7,7 +7,7 @@ const getData = async (url, endpoint) => {
     return await response.json();
 };
 
-export const api = {
+export const todoApi = {
 	baseURL: "https://dummyjson.com/todos",
 	get: {
 		data: (page) => getData(URL, `limit=${LIMIT_PER_PAGE}&skip=${(page - 1) * LIMIT_PER_PAGE}`),

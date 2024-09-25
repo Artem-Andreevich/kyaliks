@@ -1,2 +1,5 @@
 export * from "./Pagination"
 export * from "./TodoList"
+export * from "./ProfileItem"
+export * from "./TodoItem"
+export * from "./Form"
