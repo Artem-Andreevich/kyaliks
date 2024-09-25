@@ -17,7 +17,7 @@ export const Header = () => {
                             <NavLink 
                                 to={'todo'}
                                 className="nav__link"
-                            >Todo List</NavLink>
+                            >Todo</NavLink>
                         </li>
                         <li>
                             <NavLink 

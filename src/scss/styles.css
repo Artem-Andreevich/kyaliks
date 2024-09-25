@@ -528,7 +528,7 @@ footer {
 .nav__list {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 16px;
 }
 .nav__link {
   padding: 8px 16px;
@@ -686,7 +686,7 @@ footer {
 }
 
 /* FEATURES */
-/* WIGETS */
+/* WIDGETS */
 .header {
   background: var(--second-color);
 }

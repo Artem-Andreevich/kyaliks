@@ -258,7 +258,7 @@
 	&__list {
 		display: flex;
 		align-items: center;
-		gap: 30px;
+		gap: 16px;
 	}
 	&__link {
 		padding: 8px 16px;
@@ -420,10 +420,9 @@
 }
 
 
-
 /* FEATURES */
 
-/* WIGETS */
+/* WIDGETS */
 .header {
 	background: var(--second-color);
 }

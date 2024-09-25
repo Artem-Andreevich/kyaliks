@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { usePaginationContext } from "../../context/PaginateContext"
 import { Pagination } from '../../components/Pagination';
 import { TodoList } from '../../components/TodoList/TodoList';
-import { api } from "../../api/api"
+import { todoApi } from "../../api/todoApi"
 
 
 export const TodoPage = () => {
@@ -13,7 +13,7 @@ export const TodoPage = () => {
     const todoPaginate = paginateState.find( page => page.pageName === "todo")
 
     useEffect(() => {
-        api.get.data(todoPaginate.page)
+        todoApi.get.data(todoPaginate.page)
             .then(data => {
                 setTodosData({
                     data: data.todos,
@@ -38,6 +38,7 @@ export const TodoPage = () => {
                 <Pagination 
                     totalPage={todosData.totalPage} 
                     page={todoPaginate.page}
+                    pageName={"todo"}
                 />
             </div>
         </main>

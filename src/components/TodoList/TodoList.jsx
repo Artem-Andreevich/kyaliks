@@ -1,3 +1,5 @@
+import { TodoItem } from "../TodoItem/TodoItem"
+
 export const TodoList = ({data}) => {
     return (
         <div className="page__content">
@@ -10,10 +12,7 @@ export const TodoList = ({data}) => {
                 </thead>
                 <tbody>
                 {data.map(todo => (
-                    <tr key={todo.id}>
-                        <td>{todo.id}</td>
-                        <td>{todo.todo}</td>
-                    </tr>
+                    <TodoItem key={todo.id} todoItem={todo}/>
                 ))}
                 </tbody>
 
