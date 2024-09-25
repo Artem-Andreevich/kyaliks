@@ -1,23 +1,20 @@
 import { usePaginationContext } from "../../context"
 
 
-export const Pagination = ({totalPage, currentPage, page, setSearchParams}) => {
+export const Pagination = ({ totalPage, page }) => {
 
     const { nextPage, prevPage, setPage } = usePaginationContext()
     
 	const handlePrevPage = () => {
         prevPage("todo")
-        setSearchParams({ page: +currentPage - 1 })
     }
 
     const handleNextPage = () => {
         nextPage("todo")
-        setSearchParams({ page: +currentPage + 1 })
     }
 
-    const handleSetPage = (currentPage) => {
-        setPage("todo", currentPage)
-        setSearchParams({ page: currentPage })
+    const handleSetPage = () => {
+        setPage("todo", page)
     }
 
 	return (
