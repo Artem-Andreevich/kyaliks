@@ -1,12 +1,24 @@
 export const TodoList = ({data}) => {
     return (
-        <ul>
-            {data.map(todo => (
-                <li key={todo.id}>
-                    <span>{todo.id}</span> - <span>{todo.todo}</span>
-                </li>
-            ))}
-        </ul>
+        <div className="page__content">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Номер</td>
+                        <td>Задача</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {data.map(todo => (
+                    <tr key={todo.id}>
+                        <td>{todo.id}</td>
+                        <td>{todo.todo}</td>
+                    </tr>
+                ))}
+                </tbody>
+
+            </table>
+        </div>
     )
 }
 

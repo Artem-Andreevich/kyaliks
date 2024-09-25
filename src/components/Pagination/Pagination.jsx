@@ -13,49 +13,59 @@ export const Pagination = ({ totalPage, page }) => {
         nextPage("todo")
     }
 
-    const handleSetPage = () => {
+    const handleSetPage = (page) => {
         setPage("todo", page)
     }
 
 	return (
-		<div>
-			<button 
-                className='btn'
-                onClick={handlePrevPage} 
-                disabled={page <= 1}
-            >
-                Prev
-            </button>
-            <button
-                className='btn pag-btn'
-                onClick={() => {handleSetPage(page - 1)}}
-                disabled={page - 1 < 1}
-            >
-                {page - 1}
-            </button>
-            <button
-                className='btn'
-                onClick={() => {handleSetPage(page)}}
-                disabled={page === totalPage || page === 1 || page}
-            >
-                {page}
-            </button>
-            <button
-                className='btn pag-btn'
-                onClick={() => {handleSetPage(page + 1)}}
-                disabled={page + 1 > totalPage}
+		<ul className="pagination">
+            <li>
+                <button 
+                    className="pagination__link"
+                    onClick={handlePrevPage} 
+                    disabled={page <= 1}
+                >
+                    Prev
+                </button>
+            </li>
+            <li>
+                <button
+                    className="pagination__link pagination__link--disabled-hidden"
+                    onClick={() => {handleSetPage(page - 1)}}
+                    disabled={page - 1 < 1}
+                >
+                    {page - 1}
+                </button>
+            </li>
+            <li>
+                <button
+                    className="pagination__link"
+                    onClick={() => {handleSetPage(page)}}
+                    disabled={page === totalPage || page === 1 || page}
+                >
+                    {page}
+                </button>
+            </li>
+            <li>
+                <button
+                    className="pagination__link pagination__link--disabled-hidden"
+                    onClick={() => {handleSetPage(page + 1)}}
+                    disabled={page + 1 > totalPage}
 
-            >
-                {page + 1}
-            </button>
-            <button
-                className='btn'
-                onClick={handleNextPage} 
-                disabled={page === totalPage}
-            >
-                Next
-            </button>
-		</div>
+                >
+                    {page + 1}
+                </button>
+            </li>
+            <li>
+                <button
+                    className="pagination__link"
+                    onClick={handleNextPage} 
+                    disabled={page === totalPage}
+                >
+                    Next
+                </button>
+            </li>
+		</ul>
 	)
 }
 

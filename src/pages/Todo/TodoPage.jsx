@@ -28,16 +28,19 @@ export const TodoPage = () => {
     }, [todoPaginate.page])
 
     return (
-        <div>
-            <h1>Todo Page</h1> 
-            {isLoading ? 
-                <div>Загрузка...</div> :
-                <TodoList data={todosData.data}/>
-            }
-            <Pagination 
-                totalPage={todosData.totalPage} 
-                page={todoPaginate.page}
-            />
-        </div>
+        <main className='page'>
+            <div className='container'>
+                <h1 className='page__title'>Todo Page</h1> 
+                {isLoading ? 
+                    <div>Загрузка...</div> :
+                    <TodoList data={todosData.data}/>
+                }
+                <Pagination 
+                    totalPage={todosData.totalPage} 
+                    page={todoPaginate.page}
+                />
+            </div>
+        </main>
+        
     )
 }

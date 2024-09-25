@@ -32,35 +32,39 @@ export const ProfilesPage = () => {
     }
 
     return (
-        <div>
-            <h1>Profiles Page</h1> 
-
-            <div>
-                {userState?.map( user => (
-                    <div 
-                        key={user.id}
-                        style={{display: 'flex', gap: '20px'}}
+        <main className="page">
+            <div className="container">
+                <h1 className="page__title">Profiles Page</h1> 
+                <div className="profiles">
+                    <ul className="profiles__list">
+                        {userState?.map( user => (
+                            <li 
+                                className="profiles__item"
+                                key={user.id}
+                            >
+                                <span className="profiles__content">{user.name}</span>
+                                <button
+                                    className="profiles__button"
+                                    onClick={() => {choiseUserHandler(user.id)}}                            
+                                    disabled={user.isActive}
+                                >
+                                    Выбрать профиль
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                    <form
+                        className="form"
+                        ref={form}
+                        onSubmit={(event) => {addUserFormHandler(event, form.current)}} 
                     >
-                        {user.name}
-                        <button
-                            onClick={() => {choiseUserHandler(user.id)}}                            
-                            disabled={user.isActive}
-                        >Выбрать профиль</button>
-                    </div>
-                ))}
+                        <input type="text" placeholder="name" name="name" required/>
+                        <input type="mail" placeholder="email" name="email" />
+                        <button className="btn">Добавить</button>
+                    </form>
+                </div>
             </div>
-     
-            <div>
-                <form 
-                    ref={form}
-                    onSubmit={(event) => {addUserFormHandler(event, form.current)}} 
-                >
-                    <input type="text" placeholder="name" name="name" required/>
-                    <input type="mail" placeholder="email" name="email" />
-                    <button className="btn">Добавить</button>
-                </form>
-            </div>
-        </div>
+        </main>
     )
 }
 
