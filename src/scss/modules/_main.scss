@@ -412,9 +412,8 @@
 		&:hover {
 			background: var(--main-color-hover);
 		}
-		&:disabled {
+		&--logout {
 			background: var(--second-color);
-			pointer-events: none;
 		}
 	}
 }

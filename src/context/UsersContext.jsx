@@ -55,11 +55,22 @@ export const UsersProvider = ({ children }) => {
 			)
 		)
 	}
+
+	const logout = () => {
+		setParams(prev => 
+			prev.map(user => { 
+				return { 
+					...user, 
+					isActive: false 
+				}
+			})
+		)
+	}
 	
 
 
 	return (
-		<UsersContext.Provider value={{ params, addUser, selectUser}}>
+		<UsersContext.Provider value={{ params, addUser, selectUser, logout}}>
 			{children}
 		</UsersContext.Provider>
 	)

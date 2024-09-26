@@ -4,7 +4,7 @@ import { useUsersContext, usePaginationContext } from "../../context";
 export const ProfileItem = ({user}) => {
 
     const { setPage } = usePaginationContext()
-    const { selectUser } = useUsersContext()
+    const { selectUser, logout } = useUsersContext()
     
     const userSelectHandler = (id) => {
         localStorage.setItem("userId", id)
@@ -18,13 +18,20 @@ export const ProfileItem = ({user}) => {
             key={user.id}
         >
             <span className="profiles__content">{user.name}</span>
-            <button
-                className="profiles__button"
-                onClick={() => {userSelectHandler(user.id)}}                            
-                disabled={user.isActive}
-            >
-                Выбрать профиль
-            </button>
+            {!user.isActive ? 
+                <button
+                    className="profiles__button"
+                    onClick={() => {userSelectHandler(user.id)}}
+                >
+                    Выбрать профиль
+                </button> : 
+                <button
+                    className="profiles__button profiles__button--logout"
+                    onClick={logout}                            
+                >
+                    Выйти
+                </button>
+            }
         </li>
     )
 }
